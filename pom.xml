@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.haulmont.tumandeev</groupId>
 	<artifactId>bankProject</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>2</version>
 	<name>tumandeev</name>
 
 	<properties>

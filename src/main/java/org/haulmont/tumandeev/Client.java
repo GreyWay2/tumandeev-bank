@@ -24,7 +24,7 @@ public class Client  extends AbstractModelClass  {
     private String middleName;
 
     @NotNull
-    @Column(name = "PASSPORT")
+    @Column(name = "PASSPORT", unique = true)
     private String passport;
 
     public Client(String firstName, String lastName, String middleName, String passport) {
@@ -38,6 +38,6 @@ public class Client  extends AbstractModelClass  {
 
     @Override
     public String toString() {
-        return "Client: " + this.lastName + " " + this.firstName + " " + this.middleName + "Passport: " + this.passport;
+        return  this.lastName + " " + this.firstName + " " + this.middleName + ", Паспорт: " + this.passport;
     }
 }

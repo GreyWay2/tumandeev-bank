@@ -5,12 +5,15 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "BANKS")
 @Data
-public class Bank extends AbstractModelClass {
+public class Bank extends AbstractModelClass implements Serializable {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -30,7 +33,7 @@ public class Bank extends AbstractModelClass {
 
     @Override
     public String toString() {
-        return "Bank: " + this.client + " " + this.creditInBank;
+        return this.client +" " + this.creditInBank;
     }
 
 }

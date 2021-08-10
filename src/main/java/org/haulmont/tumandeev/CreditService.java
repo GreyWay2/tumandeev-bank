@@ -1,8 +1,44 @@
 package org.haulmont.tumandeev;
 
+import org.haulmont.tumandeev.Client;
+import org.haulmont.tumandeev.Credit;
+import org.haulmont.tumandeev.CreditRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class CreditService {
 
+    @Autowired
+    CreditRepository creditRepository;
+
+    public CreditService() { }
+
+    public void deleteById(Long id) {
+
+        creditRepository.delete(id);
+        System.out.println("Delete Credit with ID " + id);
+    }
+
+    public void delete(Credit credit) {
+        System.out.println("Delete Credit: "+ credit.getCreditLimit() + ", " + credit.getCreditProcent());
+        creditRepository.delete(credit);
+
+    }
+
+    public List<Credit> findAll() {
+        return creditRepository.findAll();
+    }
+
+    public Credit findCredit(Long creditAmount, Double creditProcent) {
+        Credit credit = new Credit(creditAmount, creditProcent);
+        return creditRepository.findOne(Example.of(credit));
+    }
+
+    public void save(Credit credit) { creditRepository.save(credit);
+        System.out.println("Save Credit: "+ credit.getCreditLimit() + ", " + credit.getCreditProcent());}
 }

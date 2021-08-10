@@ -7,10 +7,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.haulmont.tumandeev.Client;
-import org.haulmont.tumandeev.CreditOffer;
 import org.haulmont.tumandeev.ClientService;
-import org.haulmont.tumandeev.ViewsAndForms.ClientForm;
-import org.haulmont.tumandeev.ViewsAndForms.ClientsView;
 
 public class RegistrationUserForm extends Window implements View {
 
@@ -48,7 +45,8 @@ public class RegistrationUserForm extends Window implements View {
             middleName.setValue(client.getMiddleName());
             passport.setValue(client.getPassport());
 
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         firstName.setRequiredIndicatorVisible(true);
         lastName.setRequiredIndicatorVisible(true);
@@ -64,7 +62,7 @@ public class RegistrationUserForm extends Window implements View {
 
     private void save() {
         try {
-            if(clientService.findClient(passport.getValue())==null) {
+            if (clientService.findClient(passport.getValue()) == null) {
                 client.setFirstName(firstName.getValue().trim());
                 client.setLastName(lastName.getValue().trim());
                 client.setMiddleName(middleName.getValue().trim());
@@ -86,7 +84,8 @@ public class RegistrationUserForm extends Window implements View {
                     Notification.Type.ERROR_MESSAGE).show(getUI().getPage());
         }
         CreditOfferView.clientNativeSelect.setItems(clientService.findAll());
-        CreditOfferView.clientNativeSelect.setSelectedItem(clientService.findAll().get(clientService.findAll().size()-1));
+        CreditOfferView.clientNativeSelect.setSelectedItem
+                (clientService.findAll().get(clientService.findAll().size() - 1));
     }
 
     @Override

@@ -39,7 +39,7 @@ public class MyUI extends UI implements ViewDisplay {
         );
 
         for(int i=1; i<buttonsLayout.getComponentCount(); i++)
-            buttonsLayout.getComponent(i).addStyleName(ValoTheme.BUTTON_BORDERLESS);
+            buttonsLayout.getComponent(i).addStyleName(ValoTheme.BUTTON_QUIET);
 
         buttonsLayout.getComponent(0).addStyleName(ValoTheme.BUTTON_PRIMARY);
 

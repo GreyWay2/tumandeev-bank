@@ -28,10 +28,10 @@ public class ClientService {
     public void delete(Client client) {
 
         clientRepository.delete(client);
-        System.out.println("Delete client");
+        System.out.println("Delete client " + client.toString());
     }
 
-    public List<Client> findAll() {
+    public List<Client> findAllSort() {
         return clientRepository.findAll();
     }
 
@@ -40,8 +40,11 @@ public class ClientService {
         client.setPassport(passport);
         return clientRepository.findOne(Example.of(client));
     }
+    public List<Client> findAll() {
+        return clientRepository.findAll();
+    }
 
     public void save(Client client) { clientRepository.save(client);
-        System.out.println("Save a new client");}
+     System.out.println("Save a new client " + client.toString());}
 
 }

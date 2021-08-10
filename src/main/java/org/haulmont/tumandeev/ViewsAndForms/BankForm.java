@@ -72,22 +72,15 @@ public class BankForm extends Window implements View {
 
     private void save() {
         try {
-            if(bankService.findBank(clientNativeSelect.getValue(), creditNativeSelect.getValue())==null) {
-                bank.setClient(clientNativeSelect.getValue());
-                bank.setCreditInBank(creditNativeSelect.getValue());
-                bankService.save(bank);
+            bank.setClient(clientNativeSelect.getValue());
+            bank.setCreditInBank(creditNativeSelect.getValue());
+            bankService.save(bank);
 
-                Notification notification = new Notification("Успешно! Клиент добавлен в банк",
-                        Notification.Type.HUMANIZED_MESSAGE);
-                notification.setDelayMsec(1500);
-                notification.show(getUI().getPage());
-                getUI().removeWindow(BankForm.this);
-            } else {
-                Notification notification = new Notification("Ошибка! Клиент с выбранным кредитом уже сущестует",
-                        Notification.Type.HUMANIZED_MESSAGE);
-                notification.setDelayMsec(1500);
-                notification.show(getUI().getPage());
-            }
+            Notification notification = new Notification("Успешно! Клиент добавлен в банк",
+                    Notification.Type.HUMANIZED_MESSAGE);
+            notification.setDelayMsec(1500);
+            notification.show(getUI().getPage());
+            getUI().removeWindow(BankForm.this);
         } catch (Exception e) {
             new Notification("Ошибка! Проверьте корректность вводимых данных!",
                     Notification.Type.ERROR_MESSAGE).show(getUI().getPage());

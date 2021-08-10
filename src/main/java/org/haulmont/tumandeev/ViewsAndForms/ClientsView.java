@@ -1,5 +1,7 @@
 package org.haulmont.tumandeev.ViewsAndForms;
 
+import com.vaadin.data.HasValue;
+import com.vaadin.data.provider.ListDataProvider;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -43,6 +45,7 @@ public class ClientsView extends VerticalLayout implements View {
         horizontalLayout.setComponentAlignment(editButton, Alignment.TOP_CENTER);
         horizontalLayout.setComponentAlignment(deleteButton, Alignment.TOP_RIGHT);
         addComponent(horizontalLayout);
+        addComponent(createFilter());
 
         clientGrid.setSizeFull();
         clientGrid.setColumns("lastName", "firstName", "middleName", "passport");
@@ -92,6 +95,48 @@ public class ClientsView extends VerticalLayout implements View {
                 notification.show(getUI().getPage());
             }
         });
+    }
+
+    private HorizontalLayout createFilter() {
+        HorizontalLayout mainLayout = new HorizontalLayout();
+        Label label = new Label("Поиск: ");
+        label.setSizeFull();
+        HorizontalLayout labelLayout = new HorizontalLayout();
+        labelLayout.setWidth("100%");
+        labelLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        labelLayout.addComponents(label);
+        TextField nameField = new TextField();
+        nameField.setPlaceholder("Фамилия");
+        TextField passportField = new TextField();
+        passportField.setPlaceholder("Паспорт");
+        CheckBox sortClients = new CheckBox("Сортировать по фамилии");
+        sortClients.addValueChangeListener(valueChangeEvent -> {
+            if(sortClients.getValue()) {
+                clientGrid.setItems(clientService.findAllSort());
+            } else {
+                clientGrid.setItems(clientService.findAll());
+            }
+        });
+        HorizontalLayout sortClientLayout = new HorizontalLayout(sortClients);
+        HorizontalLayout filters = new HorizontalLayout(labelLayout, nameField, passportField);
+        nameField.addValueChangeListener(this::nameFilter);
+        passportField.addValueChangeListener(this::passportFilter);
+        mainLayout.addComponents(filters, sortClientLayout);
+        mainLayout.setComponentAlignment(sortClientLayout, Alignment.MIDDLE_RIGHT);
+        mainLayout.setWidth("100%");
+        return mainLayout;
+    }
+
+    private void passportFilter(HasValue.ValueChangeEvent<String> stringValueChangeEvent) {
+        ListDataProvider<Client> dataProvider = (ListDataProvider<Client>) clientGrid.getDataProvider();
+        dataProvider.setFilter(Client::getPassport, passport ->
+                (passport.toLowerCase()).contains(stringValueChangeEvent.getValue().toLowerCase()));
+    }
+
+    private void nameFilter(HasValue.ValueChangeEvent<String> stringValueChangeEvent) {
+        ListDataProvider<Client> dataProvider = (ListDataProvider<Client>) clientGrid.getDataProvider();
+        dataProvider.setFilter(Client::getLastName, lastName ->
+                lastName.toLowerCase().contains(stringValueChangeEvent.getValue().toLowerCase()));
     }
 
     static void updateClientGrid(ClientService clientService) {

@@ -30,13 +30,16 @@ public class CreditService {
 
     }
 
-    public List<Credit> findAll() {
+    public List<Credit> findAllSort() {
         return creditRepository.findAll();
     }
 
     public Credit findCredit(Long creditAmount, Double creditProcent) {
         Credit credit = new Credit(creditAmount, creditProcent);
         return creditRepository.findOne(Example.of(credit));
+    }
+    public List<Credit> findAll() {
+        return creditRepository.findAll();
     }
 
     public List<Credit> findCreditsByAmount(Long creditAmount) {

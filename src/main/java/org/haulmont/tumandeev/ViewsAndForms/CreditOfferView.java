@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 @SpringView(name = "CreditOffer")
 public class CreditOfferView extends VerticalLayout implements View {
-    HorizontalLayout headerLayout = new HorizontalLayout();
     VerticalLayout mainLayout = new VerticalLayout();
 
     static NativeSelect<Client> clientNativeSelect;
@@ -35,18 +34,13 @@ public class CreditOfferView extends VerticalLayout implements View {
 
     private final TextField creditAmount = new TextField("Сумма кредита");
 
-
-
     @PostConstruct
     void init() {
         MyUI.setStyleForButton(4);
         Page.getCurrent().setTitle("CreditOffer");
         Label header = new Label("Оформление кредита");
         header.addStyleName(ValoTheme.LABEL_H2);
-        headerLayout.setWidth("100%");
-        headerLayout.addComponent(header);
-        headerLayout.setComponentAlignment(header, Alignment.TOP_CENTER);
-        clientNativeSelect = new NativeSelect<>("Клиент", clientService.findAll());
+        clientNativeSelect = new NativeSelect<>("Клиент", clientService.findAllSort());
         clientNativeSelect.setRequiredIndicatorVisible(true);
         registerNewUserCheckBox = new CheckBox();
         registerNewUserCheckBox.setCaption("Клиента нет в списке");
@@ -70,7 +64,8 @@ public class CreditOfferView extends VerticalLayout implements View {
         getCreditOffer.addClickListener(clickEvent -> {
             try {
                 CreditOfferForm creditOfferForm = new CreditOfferForm(creditService,
-                        Long.parseLong(creditAmount.getValue()), creditPeriod.getValue());
+                        Long.parseLong(creditAmount.getValue()), creditPeriod.getValue(),
+                        clientNativeSelect.getValue());
                 getUI().addWindow(creditOfferForm);
             }catch (Exception e) {
                 Notification error = new Notification("Ошибка! Проверьте корректность введеных данных");
@@ -79,8 +74,10 @@ public class CreditOfferView extends VerticalLayout implements View {
             }
         });
 
-        mainLayout.addComponents(clientNativeSelect, registerNewUserCheckBox, amountAndPeriodLayout, getCreditOffer);
-        addComponents(headerLayout, mainLayout);
+        mainLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        mainLayout.addComponents(header, clientNativeSelect, registerNewUserCheckBox, amountAndPeriodLayout, getCreditOffer);
+        addComponents(mainLayout);
     }
 
     @Override

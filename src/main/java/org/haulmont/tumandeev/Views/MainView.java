@@ -9,7 +9,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 @SpringView(name = "")
-public class DefaultView extends VerticalLayout implements View {
+public class MainView extends VerticalLayout implements View {
 
     @PostConstruct
     void init() {

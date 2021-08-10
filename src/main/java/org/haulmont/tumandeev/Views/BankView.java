@@ -6,39 +6,34 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import org.haulmont.tumandeev.Client;
-import org.haulmont.tumandeev.ClientService;
+import org.haulmont.tumandeev.Bank;
+import org.haulmont.tumandeev.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-@UIScope
-@SpringView(name = "Test1")
-public class Test1 extends VerticalLayout implements View {
+@SpringView(name = "Bank")
+public class BankView extends VerticalLayout implements View {
 
     @Autowired
-    ClientService doctorsService;
+    BankService bankService;
 
-    public static Grid<Client> grid = new Grid<>(Client.class);
+    public static Grid<Bank> bankGrid = new Grid(Bank.class);
     private final Button addButton = new Button("Добавить");
     private final Button editButton = new Button("Изменить");
     private final Button deleteButton = new Button("Удалить");
-    private final Button infoButton = new Button("Информация о рецепте");
 
     @PostConstruct
     void init() {
-        Page.getCurrent().setTitle("Test1");
-        addComponent(new Label("Test1"));
-        grid.setSizeFull();
-        addComponent(grid);
+        Page.getCurrent().setTitle("BankInfo");
+        addComponent(new Label("Bank"));
+        bankGrid.setSizeFull();
+        addComponent(bankGrid);
     }
 
     @Override
     public void enter(ViewChangeEvent event) {
-
     }
 }

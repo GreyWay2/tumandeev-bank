@@ -29,10 +29,9 @@ public class MyUI extends UI implements ViewDisplay {
 
         final CssLayout navigationBar = new CssLayout();
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
-        navigationBar.addComponent(createNavigationButton("Test1",
-                "Test1"));
-        navigationBar.addComponent(createNavigationButton("Test2",
-                "Test2"));
+        navigationBar.addComponent(createNavigationButton("Clients", "Clients"));
+        navigationBar.addComponent(createNavigationButton("Bank", "Bank"));
+        navigationBar.addComponent(createNavigationButton("Credits", "Credits"));
         root.addComponent(navigationBar);
 
         springViewDisplay = new Panel();

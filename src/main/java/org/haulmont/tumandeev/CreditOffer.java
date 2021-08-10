@@ -1,19 +1,17 @@
 package org.haulmont.tumandeev;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "CREDIT_OFFERS")
 @Data
-public class CreditOffer {
-    @Id
-    @GeneratedValue
-    @Column(name = "CREDIT_OFFERS_ID")
-    private Long id;
+public class CreditOffer extends AbstractModelClass {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -28,4 +26,6 @@ public class CreditOffer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PAYMENT_SCHEDULE_ID")
     private PaymentSchedule paymentSchedule;
+
+    public CreditOffer() {}
 }

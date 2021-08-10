@@ -1,18 +1,16 @@
 package org.haulmont.tumandeev;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table (name = "PAYMENT_SCHEDULES")
 @Data
-public class PaymentSchedule {
-    @Id
-    @GeneratedValue
-    @Column(name = "PAYMENT_SCHEDULE_ID")
-    private Long id;
+public class PaymentSchedule extends AbstractModelClass {
 
     @NotNull
     @Column(name = "DAY_OF_PAYMENT")

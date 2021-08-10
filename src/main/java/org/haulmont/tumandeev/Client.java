@@ -1,19 +1,16 @@
 package org.haulmont.tumandeev;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "CLIENTS")
 @Data
-public class Client {
-
-    @Id
-    @GeneratedValue
-    @Column(name= "CLIENT_ID")
-    private Long id;
+public class Client  extends AbstractModelClass  {
 
     @NotNull
     @Column(name = "FIRSTNAME")
@@ -42,31 +39,5 @@ public class Client {
     @Override
     public String toString() {
         return "Client: " + this.lastName + " " + this.firstName + " " + this.middleName + "Passport: " + this.passport;
-    }
-
-    @Override
-    public int hashCode() {
-        if (getId() != null) {
-            return getId().hashCode();
-        }
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Client other = (Client) obj;
-        if (getId() == null || other.getId() == null) {
-            return false;
-        }
-        return getId().equals(other.getId());
     }
 }

@@ -6,11 +6,8 @@ import com.vaadin.server.Page;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.haulmont.tumandeev.Client;
-import org.haulmont.tumandeev.Credit;
-import org.haulmont.tumandeev.ClientService;
-import org.haulmont.tumandeev.CreditService;
-import org.haulmont.tumandeev.ViewsAndForms.MyUI;
+import org.haulmont.tumandeev.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +28,12 @@ public class CreditOfferView extends VerticalLayout implements View {
     private ClientService clientService;
     @Autowired
     private CreditService creditService;
+    @Autowired
+    private PaymentScheduleService scheduleService;
+    @Autowired
+    CreditOfferService creditOfferService;
+    @Autowired
+    BankService bankService;
 
     private final TextField creditAmount = new TextField("Сумма кредита");
 
@@ -55,7 +58,7 @@ public class CreditOfferView extends VerticalLayout implements View {
         amountAndPeriodLayout.setHeight("100px");
         registerNewUserCheckBox.setHeight("100px");
         creditAmount.setRequiredIndicatorVisible(true);
-        creditAmount.setPlaceholder("1 000 000");
+        creditAmount.setPlaceholder("Сумма");
         creditPeriod.setSelectedItem(1);
         creditPeriod.setRequiredIndicatorVisible(true);
 
@@ -65,7 +68,7 @@ public class CreditOfferView extends VerticalLayout implements View {
             try {
                 CreditOfferForm creditOfferForm = new CreditOfferForm(creditService,
                         Long.parseLong(creditAmount.getValue()), creditPeriod.getValue(),
-                        clientNativeSelect.getValue());
+                        clientNativeSelect.getValue(), creditOfferService, scheduleService, bankService);
                 getUI().addWindow(creditOfferForm);
             }catch (Exception e) {
                 Notification error = new Notification("Ошибка! Проверьте корректность введеных данных");

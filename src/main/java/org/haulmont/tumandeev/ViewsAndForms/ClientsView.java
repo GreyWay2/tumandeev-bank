@@ -12,7 +12,6 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.haulmont.tumandeev.Client;
 import org.haulmont.tumandeev.ClientService;
-import org.haulmont.tumandeev.ViewsAndForms.MyUI;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -48,7 +47,7 @@ public class ClientsView extends VerticalLayout implements View {
         addComponent(createFilter());
 
         clientGrid.setSizeFull();
-        clientGrid.setColumns("lastName", "firstName", "middleName", "passport");
+        clientGrid.setColumns("lastName", "firstName", "middleName", "passport", "phoneNumber", "email");
         clientGrid.setItems(clientService.findAll());
 
         addComponent(clientGrid);

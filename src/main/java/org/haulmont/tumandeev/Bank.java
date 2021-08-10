@@ -17,7 +17,6 @@ public class Bank extends AbstractModelClass implements Serializable {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CLIENT_ID")
     private Client client;
 
     @NotNull

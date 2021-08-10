@@ -22,7 +22,6 @@ public class MainView extends VerticalLayout implements View {
         FileResource clientImageResource = createFileResource("clients.png");
         FileResource offerImageResource = createFileResource("offer.png");
 
-        VerticalLayout mainLayout = new VerticalLayout();
         HorizontalLayout firstRowLayout = new HorizontalLayout();
         HorizontalLayout secRowLayout = new HorizontalLayout();
         VerticalLayout bankLayout = new VerticalLayout();
@@ -35,30 +34,24 @@ public class MainView extends VerticalLayout implements View {
         Image clients = new Image("", clientImageResource);
         Image offer = new Image("", offerImageResource);
 
-        bank.setWidth("200px");
-        bank.setHeight("200px");
-        credit.setWidth("200px");
-        credit.setHeight("200px");
-        clients.setWidth("200px");
-        clients.setHeight("200px");
-        offer.setWidth("200px");
-        offer.setHeight("200px");
+        bank.setWidth("30%");
+        bank.setHeight("30%");
+        credit.setWidth("30%");
+        credit.setHeight("30%");
+        clients.setWidth("30%");
+        clients.setHeight("30%");
+        offer.setWidth("30%");
+        offer.setHeight("30%");
 
         Label bankLabel = new Label("Банк");
-        bankLabel.addStyleName(ValoTheme.LABEL_BOLD);
-        bankLabel.addStyleName(ValoTheme.LABEL_COLORED);
-
         Label creditLabel = new Label("Кредиты");
-        creditLabel.addStyleName(ValoTheme.LABEL_BOLD);
-        creditLabel.addStyleName(ValoTheme.LABEL_COLORED);
-
         Label clientsLabel = new Label("Клиенты");
-        clientsLabel.addStyleName(ValoTheme.LABEL_BOLD);
-        clientsLabel.addStyleName(ValoTheme.LABEL_COLORED);
-
         Label offerLabel = new Label("Оформить кредит");
-        offerLabel.addStyleName(ValoTheme.LABEL_BOLD);
-        offerLabel.addStyleName(ValoTheme.LABEL_COLORED);
+
+        bankLabel.addStyleName(ValoTheme.LABEL_H3);
+        creditLabel.addStyleName(ValoTheme.LABEL_H3);
+        clientsLabel.addStyleName(ValoTheme.LABEL_H3);
+        offerLabel.addStyleName(ValoTheme.LABEL_H3);
 
         bankLayout.addComponents(bank, bankLabel);
         bankLayout.setComponentAlignment(bankLabel, Alignment.TOP_CENTER);
@@ -101,12 +94,9 @@ public class MainView extends VerticalLayout implements View {
         firstRowLayout.setHeight("100%");
         secRowLayout.setWidth("100%");
         secRowLayout.setHeight("100%");
-        mainLayout.setWidth("100%");
-        mainLayout.setHeight("100%");
         firstRowLayout.addComponents(bankLayout, creditLayout);
         secRowLayout.addComponents(clientsLayout, offerLayout);
-        mainLayout.addComponents(firstRowLayout, secRowLayout);
-        addComponent(mainLayout);
+        addComponents(firstRowLayout, secRowLayout);
     }
 
     private FileResource createFileResource (String fileName) {

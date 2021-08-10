@@ -25,7 +25,6 @@ public class MyUI extends UI implements ViewDisplay {
         setContent(root);
 
         final HorizontalLayout navigationBar = new HorizontalLayout();
-        final HorizontalLayout loginLayout = new HorizontalLayout();
         buttonsLayout = new HorizontalLayout();
 
         navigationBar.setWidth("100%");
@@ -43,8 +42,8 @@ public class MyUI extends UI implements ViewDisplay {
 
         buttonsLayout.getComponent(0).addStyleName(ValoTheme.BUTTON_PRIMARY);
 
-        navigationBar.addComponents(buttonsLayout, loginLayout);
-        navigationBar.setComponentAlignment(loginLayout, Alignment.MIDDLE_RIGHT);
+        navigationBar.addComponents(buttonsLayout);
+        navigationBar.setComponentAlignment(buttonsLayout, Alignment.MIDDLE_CENTER);
 
         springViewDisplay = new Panel();
         springViewDisplay.setSizeFull();

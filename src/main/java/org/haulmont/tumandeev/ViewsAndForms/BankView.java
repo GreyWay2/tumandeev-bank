@@ -14,6 +14,7 @@ import org.haulmont.tumandeev.Bank;
 import org.haulmont.tumandeev.BankService;
 import org.haulmont.tumandeev.ClientService;
 import org.haulmont.tumandeev.CreditService;
+import org.haulmont.tumandeev.ViewsAndForms.MyUI;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringView(name = "Bank")
@@ -30,20 +31,23 @@ public class BankView extends VerticalLayout implements View {
     private final Button addButton = new Button("Добавить");
     private final Button editButton = new Button("Изменить");
     private final Button deleteButton = new Button("Удалить");
+    private final Button viewCurrentCreditOffer = new Button("Детали кредита");
+    public static long bank_id;
 
     @PostConstruct
     void init() {
-
+        MyUI.setStyleForButton(1);
         Page.getCurrent().setTitle("Bank");
         editButton.setEnabled(false);
         deleteButton.setEnabled(false);
+        viewCurrentCreditOffer.setEnabled(false);
         deleteButton.setStyleName(ValoTheme.BUTTON_DANGER);
         editButton.setIcon(VaadinIcons.PENCIL);
         deleteButton.setIcon(VaadinIcons.MINUS);
         addButton.setIcon(VaadinIcons.PLUS);
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.addComponents(addButton, editButton, deleteButton);
+        horizontalLayout.addComponents(addButton, editButton, viewCurrentCreditOffer, deleteButton);
         horizontalLayout.setSizeFull();
         horizontalLayout.setComponentAlignment(editButton, Alignment.TOP_CENTER);
         horizontalLayout.setComponentAlignment(deleteButton, Alignment.TOP_RIGHT);
@@ -63,9 +67,11 @@ public class BankView extends VerticalLayout implements View {
             if (!bankGrid.asSingleSelect().isEmpty()) {
                 editButton.setEnabled(true);
                 deleteButton.setEnabled(true);
+                viewCurrentCreditOffer.setEnabled(true);
             } else {
                 editButton.setEnabled(false);
                 deleteButton.setEnabled(false);
+                viewCurrentCreditOffer.setEnabled(false);
             }
         });
 
@@ -79,6 +85,11 @@ public class BankView extends VerticalLayout implements View {
             Bank bank = bankGrid.asSingleSelect().getValue();
             BankForm bankForm = new BankForm(bankService, bank, clientService, creditService);
             getUI().addWindow(bankForm);
+        });
+
+        viewCurrentCreditOffer.addClickListener(e -> {
+            bank_id = bankGrid.asSingleSelect().getValue().getId();
+            getUI().getNavigator().navigateTo("allOffers");
         });
 
         deleteButton.addClickListener(e -> {

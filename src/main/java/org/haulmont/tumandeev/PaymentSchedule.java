@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -14,26 +15,34 @@ public class PaymentSchedule extends AbstractModelClass {
 
     @NotNull
     @Column(name = "DAY_OF_PAYMENT")
-    private Short dayOfPayment;
+    private Date dayOfPayment;
 
     @NotNull
     @Column(name = "PAYMENT_AMOUNT")
-    private Long paymentAmount;
+    private double paymentAmount;
 
     @NotNull
     @Column(name = "REPAYMENT_BODY")
-    private Long repaymentBody;
+    private double paymentBody;
 
     @NotNull
     @Column(name = "REPAYMENT_PROCENT")
-    private Long repaymentProcent;
+    private double paymentProcent;
 
-    public PaymentSchedule(Short dayOfPayment, Long paymentAmount, Long repaymentBody, Long repaymentProcent) {
+
+    public PaymentSchedule(Date dayOfPayment, double paymentAmount, double paymentBody,
+                           double paymentProcent) {
         this.dayOfPayment = dayOfPayment;
         this.paymentAmount = paymentAmount;
-        this.repaymentBody = repaymentBody;
-        this.repaymentProcent = repaymentProcent;
+        this.paymentBody = paymentBody;
+        this.paymentProcent = paymentProcent;
     }
 
     public PaymentSchedule() {}
+
+    @Override
+    public String toString() {
+        return "Дата платежа: " + this.dayOfPayment + " Сумма платежа: " + paymentAmount
+                + " Тело: " + paymentBody + " Проценты: " + paymentProcent;
+    }
 }

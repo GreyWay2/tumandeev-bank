@@ -27,17 +27,25 @@ public class Client  extends AbstractModelClass  {
     @Column(name = "PASSPORT", unique = true)
     private String passport;
 
-    public Client(String firstName, String lastName, String middleName, String passport) {
+    @Column(name = "PHONENUMBER")
+    private String phoneNumber;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    public Client(String firstName, String lastName, String middleName, String passport, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.passport = passport;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
     public Client() {}
 
     @Override
     public String toString() {
-        return  this.lastName + " " + this.firstName + " " + this.middleName + ", Паспорт: " + this.passport;
+        return  this.lastName + " " + this.firstName + " " + this.middleName + ", Паспорт: " + this.passport + ", Тел.:" + this.phoneNumber + ", Email:" + this.email;
     }
 }

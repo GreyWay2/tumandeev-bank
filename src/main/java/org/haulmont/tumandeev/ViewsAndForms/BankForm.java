@@ -53,7 +53,7 @@ public class BankForm extends Window implements View {
         clientNativeSelect.setEmptySelectionAllowed(false);
         clientNativeSelect.setIcon(VaadinIcons.USER);
 
-        creditNativeSelect = new NativeSelect<Credit>(" Кредит", credits);
+        creditNativeSelect = new NativeSelect<>(" Кредит", credits);
         creditNativeSelect.setEmptySelectionAllowed(false);
         creditNativeSelect.setIcon(VaadinIcons.USER);
 

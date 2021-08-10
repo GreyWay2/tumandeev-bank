@@ -19,6 +19,11 @@ public class CreditOffer extends AbstractModelClass {
     private Client client;
 
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CREDIT_ID")
+    private Credit credit;
+
+    @NotNull
     @Column(name = "CREDIT_AMOUNT")
     private Long creditAmount;
 
@@ -27,5 +32,15 @@ public class CreditOffer extends AbstractModelClass {
     @JoinColumn(name = "PAYMENT_SCHEDULE_ID")
     private PaymentSchedule paymentSchedule;
 
-    public CreditOffer() {}
+    @NotNull
+    @Column(name = "BANK_ID")
+    private long bank_id;
+
+    public CreditOffer(Client client, Credit credit, long creditAmount, PaymentSchedule paymentSchedule, long bank_id) {
+        this.client = client;
+        this.credit = credit;
+        this.creditAmount = creditAmount;
+        this.paymentSchedule = paymentSchedule;
+        this.bank_id = bank_id;
+    }
 }

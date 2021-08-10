@@ -15,6 +15,8 @@ public class RegistrationUserForm extends Window implements View {
     private final TextField lastName = new TextField("Фамилия");
     private final TextField middleName = new TextField("Отчество");
     private final TextField passport = new TextField("Паспорт");
+    private final TextField phoneNumber = new TextField("Паспорт");
+    private final TextField email = new TextField("Паспорт");
 
     private final Button save = new Button("Сохранить", VaadinIcons.CHECK);
     private final Button cancel = new Button("Отмена");
@@ -35,8 +37,8 @@ public class RegistrationUserForm extends Window implements View {
         client = new Client();
         VerticalLayout form = new VerticalLayout();
         HorizontalLayout formButtons = new HorizontalLayout(save, cancel);
-        HorizontalLayout formInputs = new HorizontalLayout(firstName, lastName);
-        HorizontalLayout formUnputsDown = new HorizontalLayout(middleName, passport);
+        HorizontalLayout formInputs = new HorizontalLayout(firstName, lastName, middleName);
+        HorizontalLayout formUnputsDown = new HorizontalLayout(passport, phoneNumber, email);
         form.addComponents(formInputs, formUnputsDown, formButtons);
 
         try {
@@ -44,6 +46,8 @@ public class RegistrationUserForm extends Window implements View {
             lastName.setValue(client.getLastName());
             middleName.setValue(client.getMiddleName());
             passport.setValue(client.getPassport());
+            phoneNumber.setValue(client.getPassport());
+            email.setValue(client.getPassport());
 
         } catch (Exception ignored) {
         }
@@ -67,6 +71,8 @@ public class RegistrationUserForm extends Window implements View {
                 client.setLastName(lastName.getValue().trim());
                 client.setMiddleName(middleName.getValue().trim());
                 client.setPassport(passport.getValue().trim());
+                client.setPhoneNumber(passport.getValue().trim());
+                client.setEmail(passport.getValue().trim());
                 clientService.save(client);
                 Notification notification = new Notification("Успешно! Клиент добавлен",
                         Notification.Type.HUMANIZED_MESSAGE);

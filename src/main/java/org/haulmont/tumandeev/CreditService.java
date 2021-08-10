@@ -39,6 +39,10 @@ public class CreditService {
         return creditRepository.findOne(Example.of(credit));
     }
 
+    public List<Credit> findCreditsByAmount(Long creditAmount) {
+        return creditRepository.findCreditsByAmount(creditAmount);
+    }
+
     public void save(Credit credit) { creditRepository.save(credit);
         System.out.println("Save Credit: "+ credit.getCreditLimit() + ", " + credit.getCreditProcent());}
 }

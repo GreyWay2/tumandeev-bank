@@ -38,6 +38,11 @@ public class MyUI extends UI implements ViewDisplay {
                 createNavigationButton("Оформить кредит", "CreditOffer")
         );
 
+        for(int i=1; i<buttonsLayout.getComponentCount(); i++)
+            buttonsLayout.getComponent(i).addStyleName(ValoTheme.BUTTON_BORDERLESS);
+
+        buttonsLayout.getComponent(0).addStyleName(ValoTheme.BUTTON_PRIMARY);
+
         navigationBar.addComponents(buttonsLayout, loginLayout);
         navigationBar.setComponentAlignment(loginLayout, Alignment.MIDDLE_RIGHT);
 
@@ -54,6 +59,13 @@ public class MyUI extends UI implements ViewDisplay {
         button.addStyleName(ValoTheme.BUTTON_SMALL);
         button.addClickListener(event -> getUI().getNavigator().navigateTo(viewName));
         return button;
+    }
+
+    public static void setStyleForButton(int indexOfCurrentPage) {
+        int countOfButtons = buttonsLayout.getComponentCount();
+        for(int i=1; i<countOfButtons; i++)
+            buttonsLayout.getComponent(i).removeStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
+        buttonsLayout.getComponent(indexOfCurrentPage).addStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
     }
 
     @Override

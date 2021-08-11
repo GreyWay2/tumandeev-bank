@@ -31,7 +31,7 @@ public class BankForm extends Window implements View {
         this.bank = bank;
         this.clientService = clientService;
         this.creditService = creditService;
-        setCaption(" Добавление клиента");
+        setCaption(" Добавление клиента в банк");
         setIcon(VaadinIcons.PIGGY_BANK);
         setModal(true);
         center();

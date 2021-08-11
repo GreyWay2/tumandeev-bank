@@ -22,7 +22,7 @@ public class BankView extends VerticalLayout implements View {
     public static long bank_id;
     private final Button addButton = new Button("Добавить");
     private final Button deleteButton = new Button("Удалить");
-    private final Button viewCurrentCreditOffer = new Button("Детали кредита");
+    private final Button viewCurrentCreditOffer = new Button("График платежей кредита");
     @Autowired
     PaymentScheduleService paymentScheduleService;
     @Autowired
@@ -53,7 +53,6 @@ public class BankView extends VerticalLayout implements View {
         horizontalLayout.addComponents(addButton, viewCurrentCreditOffer, deleteButton);
         horizontalLayout.setSizeFull();
         horizontalLayout.setComponentAlignment(deleteButton, Alignment.TOP_RIGHT);
-        horizontalLayout.setComponentAlignment(addButton, Alignment.TOP_LEFT);
         horizontalLayout.setComponentAlignment(viewCurrentCreditOffer, Alignment.TOP_CENTER);
         addComponent(horizontalLayout);
 
@@ -105,7 +104,7 @@ public class BankView extends VerticalLayout implements View {
 
                 bankService.delete(bank);
                 updateBankGrid(bankService);
-                Notification notification = new Notification( bank.toString() + " был успешно удален",
+                Notification notification = new Notification(bank.toString() + " был успешно удален",
                         Notification.Type.WARNING_MESSAGE);
                 notification.setDelayMsec(1500);
                 notification.setPosition(Position.BOTTOM_CENTER);

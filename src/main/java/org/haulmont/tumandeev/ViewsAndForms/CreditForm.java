@@ -22,7 +22,7 @@ public class CreditForm extends Window implements View {
     public CreditForm(CreditService creditService, Credit credit) {
         this.creditService = creditService;
         this.credit = credit;
-        setCaption(" Заполните данные по кредиту");
+        setCaption(" Заполните данные по кредиту");
         setIcon(VaadinIcons.PIGGY_BANK_COIN);
         setModal(true);
         center();

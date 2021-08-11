@@ -33,16 +33,17 @@ public class ClientService {
         return clients;
     }
 
+    public List<Client> findAll() {
+        return clientRepository.findAll();
+    }
+
     public Client findClient(long passport) {
         Client client = new Client ();
         client.setPassport(passport);
         return clientRepository.findOne(Example.of(client));
     }
-    public List<Client> findAll() {
-        return clientRepository.findAll();
-    }
 
     public void save(Client client) { clientRepository.save(client);
-     System.out.println("Save a new client " + client.toString());}
+        System.out.println("Save a new client " + client.toString());}
 
 }

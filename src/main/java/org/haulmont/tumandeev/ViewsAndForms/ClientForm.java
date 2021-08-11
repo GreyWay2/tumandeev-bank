@@ -15,7 +15,7 @@ public class ClientForm extends Window implements View {
     private final TextField middleName = new TextField("Отчество");
     private final TextField passport = new TextField("Паспорт");
     private final TextField phoneNumber = new TextField("Телефон");
-    private final TextField email = new TextField("email");
+    private final TextField email = new TextField("Емайл");
 
     private final Button save = new Button("Сохранить", VaadinIcons.CHECK);
     private final Button cancel = new Button("Отмена");
@@ -26,7 +26,7 @@ public class ClientForm extends Window implements View {
     public ClientForm(ClientService clientService, Client client) {
         this.clientService = clientService;
         this.client = client;
-        setCaption(" Заполните данные");
+        setCaption(" Заполните данные");
         setIcon(VaadinIcons.USER);
         setModal(true);
         center();
@@ -114,5 +114,6 @@ public class ClientForm extends Window implements View {
     }
 
     @Override
-    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) { }
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+    }
 }

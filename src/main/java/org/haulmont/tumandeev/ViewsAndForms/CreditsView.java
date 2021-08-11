@@ -29,7 +29,6 @@ public class CreditsView extends VerticalLayout implements View {
     void init() {
         Navigator.setStyleForButton(2);
         Page.getCurrent().setTitle("Credits");
-
         editButton.setEnabled(false);
         deleteButton.setEnabled(false);
         deleteButton.setStyleName(ValoTheme.BUTTON_DANGER);
@@ -42,7 +41,14 @@ public class CreditsView extends VerticalLayout implements View {
         horizontalLayout.setSizeFull();
         horizontalLayout.setComponentAlignment(editButton, Alignment.TOP_CENTER);
         horizontalLayout.setComponentAlignment(deleteButton, Alignment.TOP_RIGHT);
-        addComponent(horizontalLayout);
+        CheckBox sortCredits = new CheckBox("Сортировать по лимиту");
+        sortCredits.addValueChangeListener(valueChangeEvent -> {
+            if(sortCredits.getValue())
+                creditGrid.setItems(creditService.findAllSort());
+            else creditGrid.setItems(creditService.findAll());
+        });
+        addComponents(sortCredits, horizontalLayout);
+        setComponentAlignment(sortCredits, Alignment.TOP_RIGHT);
 
         creditGrid.setSizeFull();
         creditGrid.setColumns("creditLimit", "creditProcent");

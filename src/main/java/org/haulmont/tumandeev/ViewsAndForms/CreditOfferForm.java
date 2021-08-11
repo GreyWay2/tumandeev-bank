@@ -147,5 +147,4 @@ public class CreditOfferForm extends Window implements View {
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
     }
-
 }

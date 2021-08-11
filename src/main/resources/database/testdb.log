@@ -1,9 +1,4 @@
 /*C21*/SET SCHEMA PUBLIC
-alter table banks drop constraint FKnbvkw16dr0tc18u3k4phknuma
-alter table banks drop constraint FKi3sg73cube4q6b5psu0qccbl4
-alter table credit_offers drop constraint FKgfndwt4hfodr71sqwl0msw65u
-alter table credit_offers drop constraint FKjaio5buq4xxw081c8ill1b5da
-alter table credit_offers drop constraint FKtnocoarviok3s78yvotqnn53a
 drop table banks if exists
 drop table clients if exists
 drop table credit_offers if exists
@@ -20,9 +15,9 @@ alter table banks add constraint FKi3sg73cube4q6b5psu0qccbl4 foreign key (credit
 alter table credit_offers add constraint FKgfndwt4hfodr71sqwl0msw65u foreign key (client_id) references clients
 alter table credit_offers add constraint FKjaio5buq4xxw081c8ill1b5da foreign key (credit_id) references credits
 alter table credit_offers add constraint FKtnocoarviok3s78yvotqnn53a foreign key (payment_schedule_id) references payment_schedules
-INSERT INTO CREDITS VALUES(1,1000000,10.0E0)
+INSERT INTO CLIENTS VALUES(1,'','q','q','',11,'')
 COMMIT
-INSERT INTO CLIENTS VALUES(1,'','awe','awe','',111,'')
+INSERT INTO CREDITS VALUES(1,1000000,10.0E0)
 COMMIT
 INSERT INTO BANKS VALUES(1,1,1)
 COMMIT

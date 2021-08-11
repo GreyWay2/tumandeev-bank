@@ -36,6 +36,8 @@ public class CreditOffer extends AbstractModelClass {
     @Column(name = "BANK_ID")
     private long bank_id;
 
+    public CreditOffer() {}
+
     public CreditOffer(Client client, Credit credit, long creditAmount, PaymentSchedule paymentSchedule, long bank_id) {
         this.client = client;
         this.credit = credit;

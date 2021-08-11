@@ -1,15 +1,10 @@
 package org.haulmont.tumandeev;
 
-import org.haulmont.tumandeev.Bank;
-import org.haulmont.tumandeev.Client;
-import org.haulmont.tumandeev.Credit;
-import org.haulmont.tumandeev.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class BankService {

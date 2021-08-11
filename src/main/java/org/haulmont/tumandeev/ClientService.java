@@ -1,15 +1,11 @@
 package org.haulmont.tumandeev;
 
-import org.haulmont.tumandeev.Bank;
-import org.haulmont.tumandeev.Client;
-import org.haulmont.tumandeev.Credit;
-import org.haulmont.tumandeev.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ClientService {
@@ -32,10 +28,12 @@ public class ClientService {
     }
 
     public List<Client> findAllSort() {
-        return clientRepository.findAll();
+        List<Client> clients = clientRepository.findAll();
+        Collections.sort(clients);
+        return clients;
     }
 
-    public Client findClient(String passport) {
+    public Client findClient(long passport) {
         Client client = new Client ();
         client.setPassport(passport);
         return clientRepository.findOne(Example.of(client));

@@ -5,15 +5,12 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "BANKS")
 @Data
-public class Bank extends AbstractModelClass implements Serializable {
+public class Bank extends AbstractModelClass{
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)

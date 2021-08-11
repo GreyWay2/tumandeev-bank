@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "CREDITS")
 @Data
-public class Credit extends AbstractModelClass {
+public class Credit extends AbstractModelClass implements Comparable<Credit> {
 
     @NotNull
     @Column(name = "CREDIT_LIMIT")
@@ -34,5 +34,10 @@ public class Credit extends AbstractModelClass {
     @Override
     public String toString() {
         return this.creditLimit + " руб., " + this.creditProcent + " %";
+    }
+
+    @Override
+    public int compareTo(Credit o) {
+        return o.getCreditLimit().compareTo(this.getCreditLimit());
     }
 }

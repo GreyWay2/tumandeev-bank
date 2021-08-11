@@ -44,7 +44,7 @@ public class ClientForm extends Window implements View {
             firstName.setValue(client.getFirstName());
             lastName.setValue(client.getLastName());
             middleName.setValue(client.getMiddleName());
-            passport.setValue(client.getPassport());
+            passport.setValue(String.valueOf(client.getPassport()));
             phoneNumber.setValue(client.getPhoneNumber());
             email.setValue(client.getEmail());
 
@@ -63,31 +63,54 @@ public class ClientForm extends Window implements View {
     }
 
     private void save() {
-        try {
-            if(clientService.findClient(passport.getValue())==null) {
-                client.setFirstName(firstName.getValue().trim());
-                client.setLastName(lastName.getValue().trim());
-                client.setMiddleName(middleName.getValue().trim());
-                client.setPassport(passport.getValue().trim());
-                client.setPhoneNumber(phoneNumber.getValue().trim());
-                client.setEmail(email.getValue().trim());
-                clientService.save(client);
-                Notification notification = new Notification("Успешно! Клиент добавлен",
-                        Notification.Type.HUMANIZED_MESSAGE);
-                notification.setDelayMsec(1500);
-                notification.show(getUI().getPage());
-                getUI().removeWindow(ClientForm.this);
-            } else {
-                Notification notification = new Notification("Ошибка! Клиент с таким паспортом уже сущестует",
-                        Notification.Type.HUMANIZED_MESSAGE);
-                notification.setDelayMsec(1500);
-                notification.show(getUI().getPage());
+        if (validateInputsData(firstName.getValue(), lastName.getValue(), middleName.getValue())) {
+            try {
+                if (clientService.findClient(Long.parseLong(passport.getValue())) == null) {
+                    client.setFirstName(firstName.getValue().trim());
+                    client.setLastName(lastName.getValue().trim());
+                    client.setMiddleName(middleName.getValue().trim());
+                    client.setPassport(Long.parseLong(passport.getValue().trim()));
+                    client.setPhoneNumber(phoneNumber.getValue().trim());
+                    client.setEmail(email.getValue().trim());
+                    clientService.save(client);
+                    Notification notification = new Notification("Успешно! Клиент добавлен",
+                            Notification.Type.HUMANIZED_MESSAGE);
+                    notification.setDelayMsec(1500);
+                    notification.show(getUI().getPage());
+                    getUI().removeWindow(ClientForm.this);
+                } else {
+                    Notification notification = new Notification("Ошибка! Клиент с таким " +
+                            "паспортом уже сущестует или введены некорректные данные",
+                            Notification.Type.HUMANIZED_MESSAGE);
+                    notification.setDelayMsec(1500);
+                    notification.show(getUI().getPage());
+                }
+            } catch (Exception e) {
+                new Notification("Ошибка! Проверьте корректность вводимых данных!",
+                        Notification.Type.ERROR_MESSAGE).show(getUI().getPage());
             }
-        } catch (Exception e) {
+            ClientsView.updateClientGrid(clientService);
+        } else {
             new Notification("Ошибка! Проверьте корректность вводимых данных!",
                     Notification.Type.ERROR_MESSAGE).show(getUI().getPage());
         }
-        ClientsView.updateClientGrid(clientService);
+    }
+
+    public boolean validateInputsData(String firstName, String lastName, String middleName) {
+        char[] firstNameArray = firstName.toCharArray();
+        char[] lastNameArray = lastName.toCharArray();
+        char[] middleNameArray = middleName.toCharArray();
+
+        for (Character ch : firstNameArray)
+            if (Character.isDigit(ch)) return false;
+
+        for (Character ch : lastNameArray)
+            if (Character.isDigit(ch)) return false;
+
+        for (Character ch : middleNameArray)
+            if (Character.isDigit(ch)) return false;
+
+        return true;
     }
 
     @Override

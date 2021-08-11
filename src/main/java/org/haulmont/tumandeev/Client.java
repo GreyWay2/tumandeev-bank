@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "CLIENTS")
 @Data
-public class Client  extends AbstractModelClass  {
+public class Client  extends AbstractModelClass implements Comparable<Client> {
 
     @NotNull
     @Column(name = "FIRSTNAME")
@@ -25,7 +25,7 @@ public class Client  extends AbstractModelClass  {
 
     @NotNull
     @Column(name = "PASSPORT", unique = true)
-    private String passport;
+    private Long passport;
 
     @Column(name = "PHONENUMBER")
     private String phoneNumber;
@@ -33,7 +33,7 @@ public class Client  extends AbstractModelClass  {
     @Column(name = "EMAIL")
     private String email;
 
-    public Client(String firstName, String lastName, String middleName, String passport, String phoneNumber, String email) {
+    public Client(String firstName, String lastName, String middleName, Long passport, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -47,5 +47,11 @@ public class Client  extends AbstractModelClass  {
     @Override
     public String toString() {
         return  this.lastName + " " + this.firstName + " " + this.middleName + ", Паспорт: " + this.passport + ", Тел.:" + this.phoneNumber + ", Email:" + this.email;
+    }
+
+    @Override
+    public int compareTo(Client o) {
+        return this.getLastName().toLowerCase().
+                compareTo(o.getLastName().toLowerCase());
     }
 }

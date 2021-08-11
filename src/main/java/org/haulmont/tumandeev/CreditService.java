@@ -1,14 +1,11 @@
 package org.haulmont.tumandeev;
 
-import org.haulmont.tumandeev.Client;
-import org.haulmont.tumandeev.Credit;
-import org.haulmont.tumandeev.CreditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class CreditService {
@@ -31,7 +28,9 @@ public class CreditService {
     }
 
     public List<Credit> findAllSort() {
-        return creditRepository.findAll();
+        List<Credit> credits = creditRepository.findAll();
+        Collections.sort(credits);
+        return credits;
     }
 
     public Credit findCredit(Long creditAmount, Double creditProcent) {

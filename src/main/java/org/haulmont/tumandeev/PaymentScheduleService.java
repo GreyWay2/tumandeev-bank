@@ -1,7 +1,5 @@
 package org.haulmont.tumandeev;
 
-import org.haulmont.tumandeev.PaymentSchedule;
-import org.haulmont.tumandeev.PaymentScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -27,7 +27,7 @@ public class CreditsView extends VerticalLayout implements View {
 
     @PostConstruct
     void init() {
-        MyUI.setStyleForButton(2);
+        Navigator.setStyleForButton(2);
         Page.getCurrent().setTitle("Credits");
 
         editButton.setEnabled(false);

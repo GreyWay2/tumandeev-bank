@@ -10,9 +10,8 @@ import org.haulmont.tumandeev.*;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Collections;
-import java.util.ArrayList;
+import java.util.List;
 import java.sql.Date;
 
 public class CreditOfferForm extends Window implements View {
@@ -41,7 +40,7 @@ public class CreditOfferForm extends Window implements View {
         this.scheduleService = scheduleService;
         this.bankService = bankService;
 
-        setCaption(" Подходящие кредиты");
+        setCaption(" Подходящие кредиты");
         setIcon(VaadinIcons.PIGGY_BANK_COIN);
         setModal(true);
         center();
@@ -51,10 +50,11 @@ public class CreditOfferForm extends Window implements View {
     private Component loadDataForm() {
         HorizontalLayout buttons = new HorizontalLayout(ok, back);
         Label creditOffer = new Label("Выберете подходящий кредит:");
-        if (creditService.findCreditsByAmount(creditAmount).size()==0) {
+        if (creditService.findCreditsByAmount(creditAmount).size() == 0) {
             form.addComponents(new Label("К сожалению подходящих кредитов не найдено"));
         } else {
             List<Credit> credits = creditService.findCreditsByAmount(creditAmount);
+            Collections.sort(credits);
             creditNativeSelect = new NativeSelect<>("Кредиты", credits);
             form.addComponents(creditOffer, creditNativeSelect, buttons);
             ok.addClickListener(event -> this.ok(creditNativeSelect.getValue(), client, creditAmount, creditPeriod));
@@ -72,7 +72,7 @@ public class CreditOfferForm extends Window implements View {
         center();
         HorizontalLayout header = new HorizontalLayout();
         header.setWidth("100%");
-        Label checkInfo = new Label("Проверьте данные:");
+        Label checkInfo = new Label("Проверьте данные");
         checkInfo.addStyleName(ValoTheme.LABEL_SUCCESS);
         header.addComponent(checkInfo);
         header.setComponentAlignment(checkInfo, Alignment.MIDDLE_CENTER);
@@ -81,8 +81,8 @@ public class CreditOfferForm extends Window implements View {
         accept.addStyleName(ValoTheme.BUTTON_FRIENDLY);
         cancel.addStyleName(ValoTheme.BUTTON_DANGER);
         HorizontalLayout buttons = new HorizontalLayout(accept, cancel);
-        double firstPayment = (creditAmount*0.8/(creditPeriod*12)) +
-                ((creditAmount * 0.8 * (credit.getCreditProcent()/100)) / (creditPeriod*12));
+        double firstPayment = (creditAmount * 0.8 / (creditPeriod * 12)) +
+                ((creditAmount * 0.8 * (credit.getCreditProcent() / 100)) / (creditPeriod * 12));
         DecimalFormat df = new DecimalFormat("#.##");
         form.addComponents(
                 header,
@@ -91,11 +91,11 @@ public class CreditOfferForm extends Window implements View {
                 new Label("\nСрок кредита: " + creditPeriod + " лет"),
                 new Label("\nПроцентная ставка: " + credit.getCreditProcent() + "%"),
                 new Label("\nПервоначальный взнос: " +
-                        df.format(creditAmount - creditAmount*0.8) + " рублей"),
-                new Label("\nПлатеж за первый месяц (фиксированнный + проценты): "+
-                        df.format(firstPayment) +" рублей"),
+                        df.format(creditAmount - creditAmount * 0.8) + " рублей"),
+                new Label("\nПлатеж за первый месяц (фиксированнный + проценты): " +
+                        df.format(firstPayment) + " рублей"),
                 new Label("\nФиксированный ежемесячный платеж (без учёта процентов): " +
-                        df.format(creditAmount*0.8/(creditPeriod*12))),
+                        df.format(creditAmount * 0.8 / (creditPeriod * 12))),
                 buttons
         );
         accept.addClickListener(clickEvent -> this.saveCredit());
@@ -112,15 +112,16 @@ public class CreditOfferForm extends Window implements View {
             Date date = Date.valueOf(localDateTime.toLocalDate());
             double scale = Math.pow(10, 2);
 
-            double ostatok = creditAmount*0.8;
+            double ostatok = creditAmount * 0.8;
             double procent = credit.getCreditProcent();
-            int peroid = creditPeriod*12;
-            double telo = Math.ceil(ostatok/peroid * scale) / scale;
+            int period = creditPeriod * 12;
+            double paymentBody = Math.ceil(ostatok / period * scale) / scale;
 
-            for(int i=0; i<creditPeriod*12; i++) {
-                double procenty = Math.ceil(((ostatok*(procent/100)) / peroid) * scale) / scale;
-                double paymentPerMonth = Math.ceil((telo + procenty) * scale) / scale;
-                PaymentSchedule schedule = new PaymentSchedule(date, paymentPerMonth, telo, procenty);
+            for (int i = 0; i < creditPeriod * 12; i++) {
+                double paymentProcent = Math.ceil(((ostatok * (procent / 100)) / period) * scale) / scale;
+                double paymentPerMonth = Math.ceil((paymentBody + paymentProcent) * scale) / scale;
+                if(paymentProcent<0) paymentProcent=0;
+                PaymentSchedule schedule = new PaymentSchedule(date, paymentPerMonth, paymentBody, paymentProcent);
                 ostatok -= paymentPerMonth;
                 localDateTime = localDateTime.plusMonths(1);
                 date = Date.valueOf(localDateTime.toLocalDate());
@@ -133,7 +134,7 @@ public class CreditOfferForm extends Window implements View {
             success.setDelayMsec(1500);
             success.show(getUI().getPage());
             getUI().removeWindow(CreditOfferForm.this);
-        }catch (Exception e) {
+        } catch (Exception e) {
             Notification success = new Notification("Не удалось завершить операцию, попробуйте снова!",
                     Notification.Type.ERROR_MESSAGE);
             success.setDelayMsec(1500);
@@ -146,4 +147,5 @@ public class CreditOfferForm extends Window implements View {
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
     }
+
 }

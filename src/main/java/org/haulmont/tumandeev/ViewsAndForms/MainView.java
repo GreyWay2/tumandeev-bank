@@ -8,15 +8,15 @@ import com.vaadin.server.FileResource;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-
+import java.io.Serializable;
 import java.io.File;
 
 @SpringView(name = "")
-public class MainView extends VerticalLayout implements View {
+public class MainView extends VerticalLayout implements View, Serializable {
 
     @PostConstruct
     void init() {
-        MyUI.buttonsLayout.setVisible(false);
+        Navigator.buttonsLayout.setVisible(false);
         FileResource bankImageResource = createFileResource("bank.png");
         FileResource creditImageResource = createFileResource("credit.png");
         FileResource clientImageResource = createFileResource("clients.png");
@@ -58,7 +58,7 @@ public class MainView extends VerticalLayout implements View {
         bankLayout.setComponentAlignment(bank, Alignment.TOP_CENTER);
         bankLayout.addLayoutClickListener(event -> {
             getUI().getNavigator().navigateTo("Bank");
-            MyUI.buttonsLayout.setVisible(true);
+            Navigator.buttonsLayout.setVisible(true);
         });
         bankLayout.addStyleName(ValoTheme.LAYOUT_WELL);
 
@@ -67,7 +67,7 @@ public class MainView extends VerticalLayout implements View {
         creditLayout.setComponentAlignment(credit, Alignment.TOP_CENTER);
         creditLayout.addLayoutClickListener(event -> {
             getUI().getNavigator().navigateTo("Credits");
-            MyUI.buttonsLayout.setVisible(true);
+            Navigator.buttonsLayout.setVisible(true);
         });
         creditLayout.addStyleName(ValoTheme.LAYOUT_WELL);
 
@@ -76,7 +76,7 @@ public class MainView extends VerticalLayout implements View {
         clientsLayout.setComponentAlignment(clients, Alignment.TOP_CENTER);
         clientsLayout.addLayoutClickListener(event -> {
             getUI().getNavigator().navigateTo("Clients");
-            MyUI.buttonsLayout.setVisible(true);
+            Navigator.buttonsLayout.setVisible(true);
         });
         clientsLayout.addStyleName(ValoTheme.LAYOUT_WELL);
 
@@ -85,7 +85,7 @@ public class MainView extends VerticalLayout implements View {
         offerLayout.setComponentAlignment(offer, Alignment.TOP_CENTER);
         offerLayout.addLayoutClickListener(event -> {
             getUI().getNavigator().navigateTo("CreditOffer");
-            MyUI.buttonsLayout.setVisible(true);
+            Navigator.buttonsLayout.setVisible(true);
         });
         offerLayout.addStyleName(ValoTheme.LAYOUT_WELL);
 

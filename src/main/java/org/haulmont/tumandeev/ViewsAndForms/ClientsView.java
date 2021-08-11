@@ -29,7 +29,7 @@ public class ClientsView extends VerticalLayout implements View {
 
     @PostConstruct
     void init() {
-        MyUI.setStyleForButton(3);
+        Navigator.setStyleForButton(3);
         Page.getCurrent().setTitle("Clients");
         editButton.setEnabled(false);
         deleteButton.setEnabled(false);
@@ -108,20 +108,10 @@ public class ClientsView extends VerticalLayout implements View {
         nameField.setPlaceholder("Фамилия");
         TextField passportField = new TextField();
         passportField.setPlaceholder("Паспорт");
-        CheckBox sortClients = new CheckBox("Сортировать по фамилии");
-        sortClients.addValueChangeListener(valueChangeEvent -> {
-            if(sortClients.getValue()) {
-                clientGrid.setItems(clientService.findAllSort());
-            } else {
-                clientGrid.setItems(clientService.findAll());
-            }
-        });
-        HorizontalLayout sortClientLayout = new HorizontalLayout(sortClients);
         HorizontalLayout filters = new HorizontalLayout(labelLayout, nameField, passportField);
         nameField.addValueChangeListener(this::nameFilter);
         passportField.addValueChangeListener(this::passportFilter);
-        mainLayout.addComponents(filters, sortClientLayout);
-        mainLayout.setComponentAlignment(sortClientLayout, Alignment.MIDDLE_RIGHT);
+        mainLayout.addComponents(filters);
         mainLayout.setWidth("100%");
         return mainLayout;
     }
@@ -129,7 +119,7 @@ public class ClientsView extends VerticalLayout implements View {
     private void passportFilter(HasValue.ValueChangeEvent<String> stringValueChangeEvent) {
         ListDataProvider<Client> dataProvider = (ListDataProvider<Client>) clientGrid.getDataProvider();
         dataProvider.setFilter(Client::getPassport, passport ->
-                (passport.toLowerCase()).contains(stringValueChangeEvent.getValue().toLowerCase()));
+                (passport.toString()).contains(stringValueChangeEvent.getValue().toLowerCase()));
     }
 
     private void nameFilter(HasValue.ValueChangeEvent<String> stringValueChangeEvent) {

@@ -9,10 +9,12 @@ import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
+import java.io.Serializable;
+
 @Theme("valo")
 @SpringUI
 @SpringViewDisplay
-public class MyUI extends UI implements ViewDisplay {
+public class Navigator extends UI implements ViewDisplay, Serializable {
 
     final VerticalLayout root = new VerticalLayout();
     public static HorizontalLayout buttonsLayout;

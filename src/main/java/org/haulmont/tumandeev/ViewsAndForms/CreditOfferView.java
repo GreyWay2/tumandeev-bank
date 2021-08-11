@@ -7,6 +7,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.haulmont.tumandeev.*;
+import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,15 +16,13 @@ import java.util.Arrays;
 
 
 @SpringView(name = "CreditOffer")
-public class CreditOfferView extends VerticalLayout implements View {
+public class CreditOfferView extends VerticalLayout implements View, Serializable {
     VerticalLayout mainLayout = new VerticalLayout();
 
     static NativeSelect<Client> clientNativeSelect;
     private NativeSelect<Credit> creditNativeSelect;
     private final NativeSelect<Integer> creditPeriod = new NativeSelect<>
             ("Срок", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-    private CheckBox registerNewUserCheckBox;
-
     @Autowired
     private ClientService clientService;
     @Autowired
@@ -39,24 +38,14 @@ public class CreditOfferView extends VerticalLayout implements View {
 
     @PostConstruct
     void init() {
-        MyUI.setStyleForButton(4);
+        Navigator.setStyleForButton(4);
         Page.getCurrent().setTitle("CreditOffer");
         Label header = new Label("Оформление кредита");
         header.addStyleName(ValoTheme.LABEL_H2);
         clientNativeSelect = new NativeSelect<>("Клиент", clientService.findAllSort());
         clientNativeSelect.setRequiredIndicatorVisible(true);
-        registerNewUserCheckBox = new CheckBox();
-        registerNewUserCheckBox.setCaption("Клиента нет в списке");
-        registerNewUserCheckBox.addValueChangeListener(valueChangeEvent -> {
-            if(registerNewUserCheckBox.getValue()) {
-                RegistrationUserForm registrationUserForm = new RegistrationUserForm(clientService);
-                getUI().addWindow(registrationUserForm);
-                registerNewUserCheckBox.setValue(false);
-            }
-        });
         HorizontalLayout amountAndPeriodLayout = new HorizontalLayout(creditAmount, creditPeriod);
         amountAndPeriodLayout.setHeight("100px");
-        registerNewUserCheckBox.setHeight("100px");
         creditAmount.setRequiredIndicatorVisible(true);
         creditAmount.setPlaceholder("Сумма");
         creditPeriod.setSelectedItem(1);
@@ -79,7 +68,7 @@ public class CreditOfferView extends VerticalLayout implements View {
 
         mainLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        mainLayout.addComponents(header, clientNativeSelect, registerNewUserCheckBox, amountAndPeriodLayout, getCreditOffer);
+        mainLayout.addComponents(header, clientNativeSelect, amountAndPeriodLayout, getCreditOffer);
         addComponents(mainLayout);
     }
 

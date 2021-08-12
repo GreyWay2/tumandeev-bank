@@ -41,7 +41,7 @@ public class Navigator extends UI implements ViewDisplay, Serializable {
 
         buttonsLayout.addComponents(
                 createNavigationButton("Банк", "Bank", bankImageResource),
-                createNavigationButton("Кредиты", "Credits", creditImageResource),
+                createNavigationButton("Кредитные предложения", "Credits", creditImageResource),
                 createNavigationButton("Клиенты", "Clients", clientImageResource),
                 createNavigationButton("Оформить кредит", "CreditOffer", offerImageResource)
         );

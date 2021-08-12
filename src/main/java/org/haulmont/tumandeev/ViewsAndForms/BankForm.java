@@ -6,7 +6,12 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.haulmont.tumandeev.*;
+import org.haulmont.tumandeev.Models.Bank;
+import org.haulmont.tumandeev.Models.Client;
+import org.haulmont.tumandeev.Models.Credit;
+import org.haulmont.tumandeev.Services.BankService;
+import org.haulmont.tumandeev.Services.ClientService;
+import org.haulmont.tumandeev.Services.CreditService;
 
 import java.util.List;
 

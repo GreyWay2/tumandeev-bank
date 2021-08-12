@@ -1,5 +1,7 @@
-package org.haulmont.tumandeev;
+package org.haulmont.tumandeev.Services;
 
+import org.haulmont.tumandeev.Models.CreditOffer;
+import org.haulmont.tumandeev.Repos.CreditOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

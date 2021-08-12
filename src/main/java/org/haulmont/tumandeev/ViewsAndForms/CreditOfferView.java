@@ -6,9 +6,12 @@ import com.vaadin.server.Page;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.haulmont.tumandeev.*;
+
 import java.io.Serializable;
 
+import org.haulmont.tumandeev.Models.Client;
+import org.haulmont.tumandeev.Models.Credit;
+import org.haulmont.tumandeev.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -38,7 +41,7 @@ public class CreditOfferView extends VerticalLayout implements View, Serializabl
 
     @PostConstruct
     void init() {
-        Navigator.setStyleForButton(4);
+        Navigator.setStyleForButton(3);
         Page.getCurrent().setTitle("CreditOffer");
         Label header = new Label("Оформление кредита");
         header.addStyleName(ValoTheme.LABEL_H2);

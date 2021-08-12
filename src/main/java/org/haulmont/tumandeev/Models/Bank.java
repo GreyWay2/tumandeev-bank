@@ -1,4 +1,4 @@
-package org.haulmont.tumandeev;
+package org.haulmont.tumandeev.Models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "BANKS")
 @Data
-public class Bank extends AbstractModelClass{
+public class Bank extends AbstractModelClass {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)

@@ -10,7 +10,9 @@ import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.haulmont.tumandeev.*;
+import org.haulmont.tumandeev.Models.Bank;
+import org.haulmont.tumandeev.Models.CreditOffer;
+import org.haulmont.tumandeev.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ public class BankView extends VerticalLayout implements View {
     @PostConstruct
     void init() {
         bank_id = 0;
-        Navigator.setStyleForButton(1);
+        Navigator.setStyleForButton(0);
         Page.getCurrent().setTitle("Bank");
         deleteButton.setEnabled(false);
         viewCurrentCreditOffer.setEnabled(false);

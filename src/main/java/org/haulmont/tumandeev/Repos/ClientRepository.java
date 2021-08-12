@@ -1,5 +1,6 @@
-package org.haulmont.tumandeev;
+package org.haulmont.tumandeev.Repos;
 
+import org.haulmont.tumandeev.Models.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

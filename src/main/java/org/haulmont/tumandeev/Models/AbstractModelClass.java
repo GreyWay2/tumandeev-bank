@@ -1,4 +1,4 @@
-package org.haulmont.tumandeev;
+package org.haulmont.tumandeev.Models;
 
 import lombok.Data;
 

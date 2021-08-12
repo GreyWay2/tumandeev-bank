@@ -1,7 +1,8 @@
-package org.haulmont.tumandeev;
+package org.haulmont.tumandeev.Models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.haulmont.tumandeev.Models.AbstractModelClass;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

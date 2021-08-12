@@ -6,8 +6,8 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.haulmont.tumandeev.Credit;
-import org.haulmont.tumandeev.CreditService;
+import org.haulmont.tumandeev.Models.Credit;
+import org.haulmont.tumandeev.Services.CreditService;
 
 public class CreditForm extends Window implements View {
 

@@ -10,8 +10,8 @@ import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import org.haulmont.tumandeev.Client;
-import org.haulmont.tumandeev.ClientService;
+import org.haulmont.tumandeev.Models.Client;
+import org.haulmont.tumandeev.Services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -29,7 +29,7 @@ public class ClientsView extends VerticalLayout implements View {
 
     @PostConstruct
     void init() {
-        Navigator.setStyleForButton(3);
+        Navigator.setStyleForButton(2);
         Page.getCurrent().setTitle("Clients");
         editButton.setEnabled(false);
         deleteButton.setEnabled(false);

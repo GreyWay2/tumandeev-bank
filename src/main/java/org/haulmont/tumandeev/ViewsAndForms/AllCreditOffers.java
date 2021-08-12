@@ -5,7 +5,8 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
-import org.haulmont.tumandeev.*;
+import org.haulmont.tumandeev.Models.CreditOffer;
+import org.haulmont.tumandeev.Services.CreditOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;

@@ -94,6 +94,7 @@ public class CreditsView extends VerticalLayout implements View {
         });
     }
 
+
     static void updateCreditGrid(CreditService creditService) {
         creditGrid.setItems(creditService.findAll());
     }

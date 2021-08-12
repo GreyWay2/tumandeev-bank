@@ -50,10 +50,10 @@ public class BankView extends VerticalLayout implements View {
         addButton.setIcon(VaadinIcons.PLUS);
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.addComponents(addButton, viewCurrentCreditOffer, deleteButton);
+        horizontalLayout.addComponents(viewCurrentCreditOffer, deleteButton);
         horizontalLayout.setSizeFull();
         horizontalLayout.setComponentAlignment(deleteButton, Alignment.TOP_RIGHT);
-        horizontalLayout.setComponentAlignment(viewCurrentCreditOffer, Alignment.TOP_CENTER);
+        horizontalLayout.setComponentAlignment(viewCurrentCreditOffer, Alignment.TOP_LEFT);
         addComponent(horizontalLayout);
 
         bankGrid.setSizeFull();

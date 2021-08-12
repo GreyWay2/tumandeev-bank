@@ -41,14 +41,8 @@ public class CreditsView extends VerticalLayout implements View {
         horizontalLayout.setSizeFull();
         horizontalLayout.setComponentAlignment(editButton, Alignment.TOP_CENTER);
         horizontalLayout.setComponentAlignment(deleteButton, Alignment.TOP_RIGHT);
-        CheckBox sortCredits = new CheckBox("Сортировать по лимиту");
-        sortCredits.addValueChangeListener(valueChangeEvent -> {
-            if(sortCredits.getValue())
-                creditGrid.setItems(creditService.findAllSort());
-            else creditGrid.setItems(creditService.findAll());
-        });
-        addComponents(sortCredits, horizontalLayout);
-        setComponentAlignment(sortCredits, Alignment.TOP_RIGHT);
+
+        addComponents(horizontalLayout);
 
         creditGrid.setSizeFull();
         creditGrid.setColumns("creditLimit", "creditProcent");

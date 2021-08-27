@@ -3,45 +3,28 @@ package org.haulmont.tumandeev.Services;
 import org.haulmont.tumandeev.Models.Credit;
 import org.haulmont.tumandeev.Repos.CreditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class CreditService {
 
     @Autowired
-    CreditRepository creditRepository;
+    final CreditRepository creditRepository;
 
-    public CreditService() { }
-
-    public void deleteById(Long id) {
-
-        creditRepository.delete(id);
-        System.out.println("Delete Credit with ID " + id);
+    public CreditService(CreditRepository creditRepository) {
+        this.creditRepository = creditRepository;
     }
 
     public void delete(Credit credit) {
-        System.out.println("Delete Credit: "+ credit.getCreditLimit() + ", " + credit.getCreditProcent());
+        System.out.println("Delete Credit: "+ credit.getCreditLimit() + ", " + credit.getCreditPercent());
         creditRepository.delete(credit);
 
     }
 
-    public List<Credit> findAllSort() {
-        List<Credit> credits = creditRepository.findAll();
-        Collections.sort(credits);
-        return credits;
-    }
-
     public List<Credit> findAll() {
         return creditRepository.findAll();
-    }
-
-    public Credit findCredit(Long creditAmount, Double creditProcent) {
-        Credit credit = new Credit(creditAmount, creditProcent);
-        return creditRepository.findOne(Example.of(credit));
     }
 
     public List<Credit> findCreditsByAmount(Long creditAmount) {
@@ -49,5 +32,5 @@ public class CreditService {
     }
 
     public void save(Credit credit) { creditRepository.save(credit);
-        System.out.println("Save Credit: "+ credit.getCreditLimit() + ", " + credit.getCreditProcent());}
+        System.out.println("Save Credit: "+ credit.getCreditLimit() + ", " + credit.getCreditPercent());}
 }

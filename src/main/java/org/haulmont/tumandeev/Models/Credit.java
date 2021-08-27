@@ -19,21 +19,21 @@ public class Credit extends AbstractModelClass implements Comparable<Credit> {
     private Long creditLimit;
 
     @NotNull
-    @Column(name = "CREDIT_PROCENT")
-    private Double creditProcent;
+    @Column(name = "CREDIT_PERCENT")
+    private Double creditPercent;
 
 
     public Credit() {
     }
 
-    public Credit(Long creditLimit, Double creditProcent) {
+    public Credit(Long creditLimit, Double creditPercent) {
         this.creditLimit = creditLimit;
-        this.creditProcent = creditProcent;
+        this.creditPercent = creditPercent;
     }
 
     @Override
     public String toString() {
-        return this.creditLimit + " руб., " + this.creditProcent + " %";
+        return this.creditLimit + " руб., " + this.creditPercent + " %";
     }
 
     @Override

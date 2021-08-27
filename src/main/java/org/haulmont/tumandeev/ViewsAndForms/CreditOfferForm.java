@@ -60,6 +60,7 @@ public class CreditOfferForm extends Window implements View {
             List<Credit> credits = creditService.findCreditsByAmount(creditAmount);
             Collections.sort(credits);
             creditNativeSelect = new NativeSelect<>("Кредиты", credits);
+            creditNativeSelect.setEmptySelectionAllowed(false);
             form.addComponents(creditOffer, creditNativeSelect, buttons);
             ok.addClickListener(event -> this.ok(creditNativeSelect.getValue(), client, creditAmount, creditPeriod));
             ok.setStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -86,14 +87,14 @@ public class CreditOfferForm extends Window implements View {
         cancel.addStyleName(ValoTheme.BUTTON_DANGER);
         HorizontalLayout buttons = new HorizontalLayout(accept, cancel);
         double firstPayment = (creditAmount * 0.8 / (creditPeriod * 12)) +
-                ((creditAmount * 0.8 * (credit.getCreditProcent() / 100)) / (creditPeriod * 12));
+                ((creditAmount * 0.8 * (credit.getCreditPercent() / 100)) / (creditPeriod * 12));
         DecimalFormat df = new DecimalFormat("#.##");
         form.addComponents(
                 header,
                 new Label(client.toString()),
                 new Label("\nСумма кредита: " + creditAmount + " рублей"),
                 new Label("\nСрок кредита: " + creditPeriod + " лет"),
-                new Label("\nПроцентная ставка: " + credit.getCreditProcent() + "%"),
+                new Label("\nПроцентная ставка: " + credit.getCreditPercent() + "%"),
                 new Label("\nПервоначальный взнос: " +
                         df.format(creditAmount - creditAmount * 0.8) + " рублей"),
                 new Label("\nПлатеж за первый месяц (фиксированнный + проценты): " +
@@ -117,15 +118,15 @@ public class CreditOfferForm extends Window implements View {
             double scale = Math.pow(10, 2);
 
             double ostatok = creditAmount * 0.8;
-            double procent = credit.getCreditProcent();
+            double percent = credit.getCreditPercent();
             int period = creditPeriod * 12;
             double paymentBody = Math.ceil(ostatok / period * scale) / scale;
 
             for (int i = 0; i < creditPeriod * 12; i++) {
-                double paymentProcent = Math.ceil(((ostatok * (procent / 100)) / period) * scale) / scale;
-                double paymentPerMonth = Math.ceil((paymentBody + paymentProcent) * scale) / scale;
-                if(paymentProcent<0) paymentProcent=0;
-                PaymentSchedule schedule = new PaymentSchedule(date, paymentPerMonth, paymentBody, paymentProcent);
+                double paymentPercent = Math.ceil(((ostatok * (percent / 100)) / period) * scale) / scale;
+                double paymentPerMonth = Math.ceil((paymentBody + paymentPercent) * scale) / scale;
+                if(paymentPercent<0) paymentPercent=0;
+                PaymentSchedule schedule = new PaymentSchedule(date, paymentPerMonth, paymentBody, paymentPercent);
                 ostatok -= paymentPerMonth;
                 localDateTime = localDateTime.plusMonths(1);
                 date = Date.valueOf(localDateTime.toLocalDate());

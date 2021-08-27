@@ -1,11 +1,8 @@
 package org.haulmont.tumandeev.Services;
 
 import org.haulmont.tumandeev.Models.Bank;
-import org.haulmont.tumandeev.Models.Client;
-import org.haulmont.tumandeev.Models.Credit;
 import org.haulmont.tumandeev.Repos.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +17,6 @@ public class BankService {
         this.bankRepository = bankRepository;
     }
 
-    public void deleteById(Long id) {
-        bankRepository.delete(id);
-        System.out.println("Delete client from bank (by BANK_ID)");
-    }
-
     public void delete(Bank bank) {
         bankRepository.delete(bank);
         System.out.println("Delete client from bank");
@@ -32,13 +24,6 @@ public class BankService {
 
     public List<Bank> findAll() {
         return bankRepository.findAll();
-    }
-
-    public Bank findBank(Client client, Credit credit) {
-        Bank bank = new Bank();
-        bank.setClient(client);
-        bank.setCreditInBank(credit);
-        return bankRepository.findOne(Example.of(bank));
     }
 
     public void save(Bank bank) { bankRepository.save(bank);

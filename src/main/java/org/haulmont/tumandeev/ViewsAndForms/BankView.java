@@ -22,7 +22,6 @@ public class BankView extends VerticalLayout implements View {
 
     public static Grid<Bank> bankGrid = new Grid<>(Bank.class);
     public static long bank_id;
-    private final Button addButton = new Button("Добавить");
     private final Button deleteButton = new Button("Удалить");
     private final Button viewCurrentCreditOffer = new Button("График платежей кредита");
     @Autowired
@@ -49,7 +48,6 @@ public class BankView extends VerticalLayout implements View {
         viewCurrentCreditOffer.setEnabled(false);
         deleteButton.setStyleName(ValoTheme.BUTTON_DANGER);
         deleteButton.setIcon(VaadinIcons.MINUS);
-        addButton.setIcon(VaadinIcons.PLUS);
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         horizontalLayout.addComponents(viewCurrentCreditOffer, deleteButton);
@@ -76,12 +74,6 @@ public class BankView extends VerticalLayout implements View {
                 deleteButton.setEnabled(false);
                 viewCurrentCreditOffer.setEnabled(false);
             }
-        });
-
-        addButton.addClickListener(e -> {
-            Bank bank = new Bank();
-            BankForm bankForm = new BankForm(bankService, bank, clientService, creditService);
-            getUI().addWindow(bankForm);
         });
 
         viewCurrentCreditOffer.addClickListener(e -> {
@@ -112,7 +104,7 @@ public class BankView extends VerticalLayout implements View {
                 notification.setPosition(Position.BOTTOM_CENTER);
                 notification.show(getUI().getPage());
             } catch (Exception deleteException) {
-                Notification notification = new Notification("Ошибка! Попробуйте еще раз позже",
+                Notification notification = new Notification("Ошибка в удалении",
                         Notification.Type.WARNING_MESSAGE);
                 notification.show(getUI().getPage());
                 deleteException.printStackTrace();

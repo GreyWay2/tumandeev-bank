@@ -25,7 +25,7 @@ public class Client  extends AbstractModelClass implements Comparable<Client> {
 
     @NotNull
     @Column(name = "PASSPORT", unique = true)
-    private Long passport;
+    private String passport;
 
     @Column(name = "PHONENUMBER")
     private String phoneNumber;
@@ -33,7 +33,7 @@ public class Client  extends AbstractModelClass implements Comparable<Client> {
     @Column(name = "EMAIL")
     private String email;
 
-    public Client(String firstName, String lastName, String middleName, Long passport, String phoneNumber, String email) {
+    public Client(String firstName, String lastName, String middleName, String passport, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -42,7 +42,9 @@ public class Client  extends AbstractModelClass implements Comparable<Client> {
         this.email = email;
     }
 
-    public Client() {}
+    public Client() {
+
+    }
 
     @Override
     public String toString() {

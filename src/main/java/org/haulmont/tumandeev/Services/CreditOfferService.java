@@ -10,21 +10,10 @@ import java.util.List;
 @Service
 public class CreditOfferService {
     @Autowired
-    CreditOfferRepository creditOfferRepository;
+    final CreditOfferRepository creditOfferRepository;
 
-    public CreditOfferService() {
-    }
-
-    public void deleteById(Long id) {
-        creditOfferRepository.delete(id);
-    }
-
-    public void delete(CreditOffer creditOffer) {
-        creditOfferRepository.delete(creditOffer);
-    }
-
-    public List<CreditOffer> findAll() {
-        return creditOfferRepository.findAll();
+    public CreditOfferService(CreditOfferRepository creditOfferRepository) {
+        this.creditOfferRepository = creditOfferRepository;
     }
 
     public List<CreditOffer> findAllOffersForClient(long bankID) {

@@ -19,10 +19,6 @@ public class MainView extends VerticalLayout implements View, Serializable {
 
     }
 
-    private FileResource createFileResource (String fileName) {
-        return new FileResource(new File("src/main/resources/images/"+fileName));
-    }
-
     @Override
     public void enter(ViewChangeEvent event) {
     }

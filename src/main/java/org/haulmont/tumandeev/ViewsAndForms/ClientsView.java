@@ -67,14 +67,14 @@ public class ClientsView extends VerticalLayout implements View {
         });
 
         addButton.addClickListener(e -> {
-            Client client = new Client();
-            ClientForm clientForm = new ClientForm(clientService, client);
+            Client client = new Client("","","", "","","");
+            ClientForm clientForm = new ClientForm(clientService, client, false);
             getUI().addWindow(clientForm);
         });
 
         editButton.addClickListener(e -> {
             Client client = clientGrid.asSingleSelect().getValue();
-            ClientForm clientForm = new ClientForm(clientService, client);
+            ClientForm clientForm = new ClientForm(clientService, client, true);
             getUI().addWindow(clientForm);
         });
 
@@ -89,7 +89,7 @@ public class ClientsView extends VerticalLayout implements View {
                 notification.setPosition(Position.BOTTOM_CENTER);
                 notification.show(getUI().getPage());
             } catch (Exception deleteException) {
-                Notification notification = new Notification("Ошибка! Попробуйте еще раз позже",
+                Notification notification = new Notification("Ошибка! Нельзя удалять клиента из базы, если у него есть кредит в банке!",
                         Notification.Type.WARNING_MESSAGE);
                 notification.show(getUI().getPage());
             }

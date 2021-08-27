@@ -45,7 +45,7 @@ public class CreditsView extends VerticalLayout implements View {
         addComponents(horizontalLayout);
 
         creditGrid.setSizeFull();
-        creditGrid.setColumns("creditLimit", "creditProcent");
+        creditGrid.setColumns("creditLimit", "creditPercent");
         creditGrid.setItems(creditService.findAll());
 
         addComponent(creditGrid);
@@ -65,14 +65,14 @@ public class CreditsView extends VerticalLayout implements View {
         });
 
         addButton.addClickListener(e -> {
-            Credit credit = new Credit();
-            CreditForm creditForm = new CreditForm(creditService, credit);
+            Credit credit = new Credit(0L, 0.0);
+            CreditForm creditForm = new CreditForm(creditService, credit, false);
             getUI().addWindow(creditForm);
         });
 
         editButton.addClickListener(e -> {
             Credit credit = creditGrid.asSingleSelect().getValue();
-            CreditForm creditForm = new CreditForm(creditService, credit);
+            CreditForm creditForm = new CreditForm(creditService, credit, true);
             getUI().addWindow(creditForm);
         });
 
@@ -87,7 +87,7 @@ public class CreditsView extends VerticalLayout implements View {
                 notification.setPosition(Position.BOTTOM_CENTER);
                 notification.show(getUI().getPage());
             } catch (Exception deleteException) {
-                Notification notification = new Notification("Ошибка! Попробуйте еще раз позже",
+                Notification notification = new Notification("Ошибка при удалении!",
                         Notification.Type.WARNING_MESSAGE);
                 notification.show(getUI().getPage());
             }

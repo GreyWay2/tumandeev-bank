@@ -47,6 +47,8 @@ public class CreditOfferView extends VerticalLayout implements View, Serializabl
         header.addStyleName(ValoTheme.LABEL_H2);
         clientNativeSelect = new NativeSelect<>("Клиент", clientService.findAllSort());
         clientNativeSelect.setRequiredIndicatorVisible(true);
+        clientNativeSelect.setEmptySelectionAllowed(false);
+        creditPeriod.setEmptySelectionAllowed(false);
         HorizontalLayout amountAndPeriodLayout = new HorizontalLayout(creditAmount, creditPeriod);
         amountAndPeriodLayout.setHeight("100px");
         creditAmount.setRequiredIndicatorVisible(true);
@@ -57,13 +59,25 @@ public class CreditOfferView extends VerticalLayout implements View, Serializabl
         Button getCreditOffer = new Button("Подобрать кредит");
         getCreditOffer.addStyleName(ValoTheme.BUTTON_FRIENDLY);
         getCreditOffer.addClickListener(clickEvent -> {
-            try {
-                CreditOfferForm creditOfferForm = new CreditOfferForm(creditService,
-                        Long.parseLong(creditAmount.getValue()), creditPeriod.getValue(),
-                        clientNativeSelect.getValue(), creditOfferService, scheduleService, bankService);
-                getUI().addWindow(creditOfferForm);
-            }catch (Exception e) {
-                Notification error = new Notification("Ошибка! Проверьте корректность введеных данных");
+            if (!clientNativeSelect.isEmpty()) {
+                try {
+                    if (Long.parseLong(creditAmount.getValue()) > 0) {
+                        CreditOfferForm creditOfferForm = new CreditOfferForm(creditService,
+                                Long.parseLong(creditAmount.getValue()), creditPeriod.getValue(),
+                                clientNativeSelect.getValue(), creditOfferService, scheduleService, bankService);
+                        getUI().addWindow(creditOfferForm);
+                    } else {
+                        Notification error = new Notification("Сумма должна быть положительным числом!");
+                        error.setDelayMsec(1500);
+                        error.show(getUI().getPage());
+                    }
+                    } catch(Exception e){
+                        Notification error = new Notification("Сумма должна быть числом!");
+                        error.setDelayMsec(1500);
+                        error.show(getUI().getPage());
+                    }
+            } else {
+                Notification error = new Notification("Выберите клиента!");
                 error.setDelayMsec(1500);
                 error.show(getUI().getPage());
             }

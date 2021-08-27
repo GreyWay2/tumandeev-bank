@@ -3,7 +3,6 @@ package org.haulmont.tumandeev.Services;
 import org.haulmont.tumandeev.Models.Client;
 import org.haulmont.tumandeev.Repos.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -13,14 +12,10 @@ import java.util.List;
 public class ClientService {
 
     @Autowired
-    ClientRepository clientRepository;
+    final ClientRepository clientRepository;
 
-    public ClientService() { }
-
-    public void deleteById(Long id) {
-
-        clientRepository.delete(id);
-        System.out.println("Delete client with ID " + id);
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
     }
 
     public void delete(Client client) {
@@ -37,12 +32,6 @@ public class ClientService {
 
     public List<Client> findAll() {
         return clientRepository.findAll();
-    }
-
-    public Client findClient(long passport) {
-        Client client = new Client ();
-        client.setPassport(passport);
-        return clientRepository.findOne(Example.of(client));
     }
 
     public void save(Client client) { clientRepository.save(client);

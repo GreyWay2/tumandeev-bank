@@ -2,7 +2,6 @@ package org.haulmont.tumandeev.Models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.haulmont.tumandeev.Models.AbstractModelClass;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,23 +26,23 @@ public class PaymentSchedule extends AbstractModelClass {
     private double paymentBody;
 
     @NotNull
-    @Column(name = "REPAYMENT_PROCENT")
-    private double paymentProcent;
+    @Column(name = "REPAYMENT_PERCENT")
+    private double paymentPercent;
 
 
     public PaymentSchedule(Date dayOfPayment, double paymentAmount, double paymentBody,
-                           double paymentProcent) {
+                           double paymentPercent) {
         this.dayOfPayment = dayOfPayment;
         this.paymentAmount = paymentAmount;
         this.paymentBody = paymentBody;
-        this.paymentProcent = paymentProcent;
+        this.paymentPercent = paymentPercent;
     }
+    public PaymentSchedule() {
 
-    public PaymentSchedule() {}
-
+    }
     @Override
     public String toString() {
         return "Дата платежа: " + this.dayOfPayment + " Сумма платежа: " + paymentAmount
-                + " Тело: " + paymentBody + " Проценты: " + paymentProcent;
+                + " Тело: " + paymentBody + " Проценты: " + paymentPercent;
     }
 }
